@@ -167,7 +167,35 @@ Object(__WEBPACK_IMPORTED_MODULE_2__js_ajax_js__["a" /* default */])({
     a: 1,
     b: 2
   },
-  contentType: 'json'
+  responseType: 'json'
+}).then(ret => {
+  console.log(ret);
+}).catch(error => {
+  console.log(error);
+});
+Object(__WEBPACK_IMPORTED_MODULE_2__js_ajax_js__["a" /* default */])({
+  url: 'articles',
+  method: 'GET',
+  data: {
+    a: 1,
+    b: 2
+  },
+  responseType: 'json'
+}).then(ret => {
+  console.log(ret);
+}).catch(error => {
+  console.log(error);
+});
+
+Object(__WEBPACK_IMPORTED_MODULE_2__js_ajax_js__["a" /* default */])({
+  url: '/api/articles',
+  method: 'POST',
+  data: {
+    a: 1,
+    b: 2
+  },
+  responseType: 'json',
+  contentType: 'application/json'
 }).then(ret => {
   console.log(ret);
 }).catch(error => {
@@ -756,40 +784,42 @@ function ajax(opts) {
     url: opts.url || '',
     data: opts.data || {},
     async: opts.async || true,
-    contentType: opts.contentType || 'text'
+    responseType: opts.responseType || 'text',
+    contentType: opts.contentType || 'application/x-www-form-urlencoded; charset=UTF-8'
   };
   return new Promise((resolve, reject) => {
     let xhr = new XMLHttpRequest();
+    let { url, contentType, data } = options,
+        finalData;
     if (options.method === 'GET') {
-      xhr.open(options.method, getUrl(options.data, options.url), true);
-      xhr.responseType = options.contentType;
-      xhr.onload = () => {
-        if (xhr.status === 200 || xhr.status === 304) {
-          resolve(xhr.response);
-        }
-      };
-      xhr.onerror = reject;
-      xhr.send();
-    } else if (options.method === 'POST') {
-      xhr.open(options.method, options.url, true);
-      xhr.onload = () => {
-        if (xhr.status === 200 && xhr.status === 304) {
-          resolve(xhr.responseText);
-        }
-      };
-      xhr.onerror = reject;
-      xhr.send(options.data);
+      url = url + '?' + serialize(data);
     }
+    xhr.open(options.method, url, true);
+    if (options.method === 'POST') {
+      if (contentType === 'application/json') {
+        finalData = JSON.stringify(data);
+      } else {
+        finalData = serialize(data);
+      }
+    }
+    xhr.setRequestHeader('Content-Type', contentType);
+    xhr.responseType = options.responseType;
+    xhr.onload = () => {
+      if (xhr.status === 200 || xhr.status === 304) {
+        resolve(xhr.response);
+      }
+    };
+    xhr.onerror = reject;
+    xhr.send(finalData);
   });
 }
 
-function getUrl(obj, url) {
-  url = url + '?';
+function serialize(obj) {
   let arr = [];
   for (let key of Object.keys(obj)) {
     arr.push(`${key}=${obj[key]}`);
   }
-  return url + arr.join('&');
+  return arr.join('&');
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (ajax);
