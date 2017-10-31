@@ -28,7 +28,8 @@ module.exports = context => {
   let { method, url } = context.req
   let { resContext, reqContext, res } = context
   return new Promise(resolve => {
-    if (url.match('/api')) {
+    // /api/user || /api/about || /api/artilces
+    if (url.match('/api') && !url.match(/\./)) {
       if (method.toUpperCase() === 'GET') {
         if (url.match('/article')) {
           resContext.body = JSON.stringify(apiMap['/article'])

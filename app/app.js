@@ -36,6 +36,7 @@ class App{
       }
       this.composeMiddlWares(context).then(() => {
         let { body, headers } = context.resContext
+        console.log(headers)
         res.writeHeader(200, 'ok', headers)
         res.end(body)  
       })

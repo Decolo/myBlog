@@ -5,7 +5,6 @@ let hasBody = req => {
 
 module.exports = context => {
   let { reqContext, req } = context
-
   return Promise.resolve({
     then: resolve => {
       // 请求体中有数据，挂在req上
