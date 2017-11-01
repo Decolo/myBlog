@@ -21,17 +21,21 @@ module.exports = context => {
         let ejsName = urlMap[url]
         // 是否能匹配上html文件名
         if (ejsName) {
-          let ejsPath = path.resolve(viewPath, ejsName + '.ejs')
-          fs.readFile(ejsPath, {
+          let layoutPath = path.resolve(viewPath, 'layout.ejs')
+          fs.readFile(layoutPath, {
             encoding: 'utf8',
             flag: 'r'
           }, (error, ejsStr) => {
             if (error) resolve(`NOT Found ${error.stack}`)
             let render = ejs.compile(ejsStr, {
-              compileDebug: true
+              compileDebug: true,
+              filename: layoutPath
             })
             // render是函数，通过它填装数据
-            resContext.body = render()
+            console.log(ejsName)
+            resContext.body = render({
+              template: './' + ejsName + '.ejs'
+            })
             resContext.headers = {
               'Content-Type': 'text/html',
               ...resContext.headers
