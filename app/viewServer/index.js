@@ -4,41 +4,49 @@
 const ejs = require('ejs')
 const fs = require('fs')
 const path = require('path')
+const urlMap = require('./urlrewrite')
 
 module.exports = context => {
   let { req, resContext } = context
   let { url } = req
   if (url === '/') {
-    url = '/index.html'
+    url = '/index'
   }
   return Promise.resolve({
     then: resolve => {
-      let urlMap = {
-        '/index.html': {
-          viewName: 'index.html'
-        },
-        '/about.html': {
-          viewName: 'about.html'
-        }
-      }
-      let viewPath = path.resolve(process.cwd(), 'dist')
-      // 是否能匹配上html文件名
-      if (urlMap[url]) {
-        let { viewName } = urlMap[url]
-        let htmlPath = path.resolve(viewPath, viewName)
-        fs.readFile(htmlPath, {
-          encoding: 'utf8',
-          flag: 'r'
-        }, (error, htmlStr) => {
-          if (error) resolve(`NOT Found ${error.stack}`)
-          let render = ejs.compile(htmlStr, {
-            compileDebug: true
-          })
-          resContext.body = render()
-          resolve()
-        })
-      } else {
+      if (url.match('/api') || url.match(/\./)) {
         resolve()
+      } else {
+        const viewPath = path.resolve(__dirname, 'ejs')
+        let ejsName = urlMap[url]
+        // 是否能匹配上html文件名
+        if (ejsName) {
+          let ejsPath = path.resolve(viewPath, ejsName + '.ejs')
+          fs.readFile(ejsPath, {
+            encoding: 'utf8',
+            flag: 'r'
+          }, (error, ejsStr) => {
+            if (error) resolve(`NOT Found ${error.stack}`)
+            let render = ejs.compile(ejsStr, {
+              compileDebug: true
+            })
+            // render是函数，通过它填装数据
+            resContext.body = render()
+            resContext.headers = {
+              'Content-Type': 'text/html',
+              ...resContext.headers
+            }
+            resolve()
+          })
+        } else {
+          resContext.statusCode = 302,
+          resContext.statusMessage = 'redirect'
+          resContext.headers = {
+            'Location': '/',
+            ...resContext.headers
+          }
+          resolve()
+        }
       }
     }
   })

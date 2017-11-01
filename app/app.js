@@ -30,14 +30,15 @@ class App{
         },
         res,
         resContext: {
+          statusCode: 200,
+          statusMessage: 'ok',
           headers: {},
           body: ''
         }
       }
       this.composeMiddlWares(context).then(() => {
-        let { body, headers } = context.resContext
-        console.log(headers)
-        res.writeHeader(200, 'ok', headers)
+        let { body, headers, statusCode, statusMessage } = context.resContext
+        res.writeHeader(statusCode, statusMessage, headers)
         res.end(body)  
       })
       // url中有api，就用api处理，若不是，则视为是静态资源
