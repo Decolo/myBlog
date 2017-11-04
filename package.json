@@ -7,12 +7,15 @@
     "start": "nodemon --inspect index.js",
     "build": "webpack --config ./src/webpack.config.js",
     "dev": "webpack-dev-server --config ./src/webpack.config.js",
-    "watch": "webpack --watch --config ./src/webpack.config.js"
+    "watch": "webpack --watch --config ./src/webpack.config.js",
+    "db": "sh ./db.sh"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie": "^0.3.1",
     "ejs": "^2.5.7",
+    "mongoose": "^4.12.6",
     "node": "^8.3.0"
   },
   "devDependencies": {

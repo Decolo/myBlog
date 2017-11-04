@@ -1,47 +1,28 @@
 import './scss/style.scss'
 import './font/iconfont'
-import ajax from './js/ajax.js'
+import Tab from './js/tab.js'
+import About from './js/about.js'
+import Blogs from './js/blogs.js'
+import Designs from './js/designs.js'
 
-ajax({
-  url: '/api/articles',
-  method: 'GET',
-  data: {
-    a: 1,
-    b: 2
+new Tab('.content', '.bottom-nav', [
+  {
+    titleContent: 'About',
+    iconHref: '#icon-shouye',
+    Component: About
   },
-  responseType: 'json'
-}).then(ret => {
-  console.log(ret)
-}).catch(error => {
-  console.log(error)
-})
-ajax({
-  url: 'articles',
-  method: 'GET',
-  data: {
-    a: 1,
-    b: 2
+  {
+    titleContent: 'Blogs',
+    iconHref: '#icon-icon',
+    Component: Blogs
   },
-  responseType: 'json'
-}).then(ret => {
-  console.log(ret)
-}).catch(error => {
-  console.log(error)
-})
+  {
+    titleContent: 'Designs',
+    iconHref: '#icon-icon1',
+    Component: Designs
+  },
+])
 
-ajax({
-  url: '/api/articles',
-  method: 'POST',
-  data: {
-    a: 1,
-    b: 2
-  },
-  responseType: 'json',
-  contentType: 'application/json'
-}).then(ret => {
-  console.log(ret)
-}).catch(error => {
-  console.log(error)
-})
+
 
 

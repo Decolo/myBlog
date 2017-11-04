@@ -173,19 +173,19 @@ Object(__WEBPACK_IMPORTED_MODULE_2__js_ajax_js__["a" /* default */])({
 }).catch(error => {
   console.log(error);
 });
-Object(__WEBPACK_IMPORTED_MODULE_2__js_ajax_js__["a" /* default */])({
-  url: 'articles',
-  method: 'GET',
-  data: {
-    a: 1,
-    b: 2
-  },
-  responseType: 'json'
-}).then(ret => {
-  console.log(ret);
-}).catch(error => {
-  console.log(error);
-});
+// ajax({
+//   url: 'articles',
+//   method: 'GET',
+//   data: {
+//     a: 1,
+//     b: 2
+//   },
+//   responseType: 'json'
+// }).then(ret => {
+//   console.log(ret)
+// }).catch(error => {
+//   console.log(error)
+// })
 
 Object(__WEBPACK_IMPORTED_MODULE_2__js_ajax_js__["a" /* default */])({
   url: '/api/articles',

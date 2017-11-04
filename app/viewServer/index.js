@@ -7,18 +7,18 @@ const path = require('path')
 const urlMap = require('./urlrewrite')
 
 module.exports = context => {
-  let { req, resContext } = context
-  let { url } = req
-  if (url === '/') {
-    url = '/index'
+  let { req, resContext, reqContext } = context
+  let { pathname } = reqContext
+  if (pathname === '/') {
+    pathname = '/index'
   }
   return Promise.resolve({
     then: resolve => {
-      if (url.match('/api') || url.match(/\./)) {
+      if (pathname.match('/api') || pathname.match(/\./)) {
         resolve()
       } else {
         const viewPath = path.resolve(__dirname, 'ejs')
-        let ejsName = urlMap[url]
+        let ejsName = urlMap[pathname]
         // 是否能匹配上html文件名
         if (ejsName) {
           let layoutPath = path.resolve(viewPath, 'layout.ejs')

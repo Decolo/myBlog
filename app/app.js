@@ -33,7 +33,8 @@ class App{
           statusCode: 200,
           statusMessage: 'ok',
           headers: {},
-          body: ''
+          body: '',
+          hasUser: false
         }
       }
       this.composeMiddlWares(context).then(() => {

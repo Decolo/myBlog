@@ -1,49 +1,19 @@
-let apiMap = {
-  '/article': [{
-    id: 1,
-    content: 'content1'
-  }, {
-    id: 2,
-    content: 'content2'
-  }, {
-    id: 3,
-    content: 'content3'
-  }],
-  '/designs': [{
-    id: 1,
-    url: 'url1'
-  }, {
-    id: 2,
-    url: 'url2'
-  }, {
-    id: 3,
-    url: 'url3'
-  }]
-}
-
-
-
+const router = require('./api')
 
 module.exports = context => {
-  let { method, url } = context.req
   let { resContext, reqContext, res } = context
+  let { pathname, method } = reqContext
   return new Promise(resolve => {
-    // /api/user || /api/about || /api/artilces
-    if (url.match('/api') && !url.match(/\./)) {
-      if (method.toUpperCase() === 'GET') {
-        if (url.match('/article')) {
-          resContext.body = JSON.stringify(apiMap['/article'])
-        } else if (url.match('/designs')) {
-          resContext.body = JSON.stringify(apiMap['/designs'])
-        }
-      } else {
-        let { body } = reqContext
-        resContext.body = JSON.stringify(body)
-      }
+    if (pathname.match('/api') && !pathname.match(/\./)) {
+      router.routes(context)
+        .then(ret => {
+          resContext.body = JSON.stringify(ret)
+        })
       resContext.headers = { 
         'Content-type': 'application/json',
         ...resContext.headers,
       }
+      resolve()
     }
     resolve()
   })
