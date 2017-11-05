@@ -1,7 +1,7 @@
 class Store {
   constructor() {
     this.store = {
-      'about': {
+      about: {
         name: '蔡诚',
         avatar: './img/avatar.webp',
         contacts: [
@@ -25,7 +25,11 @@ class Store {
             iconName: 'zhanku',
             url: 'http://www.zcool.com.cn/u/13598508'}
         ],
-        brief: ''
+        brief: '小弟读过两年书，尘世中一介迷途小书童'
+      },
+      blogPagination: {
+        page: 1,
+        limit: 3
       }
     }
   }

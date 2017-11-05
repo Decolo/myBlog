@@ -21,6 +21,22 @@ html, body{
                 transform: translate(0, -50%);
             }
         }
+        .breif {
+            padding: 5px;
+            text-align: center;
+            margin: 0 auto;
+            border-bottom: 1px solid #cecece;
+            width: 80%;
+        }
+        .contact-icon{
+            width: 2rem;
+            height: 2rem;
+        }
+        ul {
+            display: flex;
+            justify-content: space-around;
+            margin: 10px;
+        }
     }
     .blogs{
         margin: 20px 15px;

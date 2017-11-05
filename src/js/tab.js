@@ -7,6 +7,7 @@
 export default class NavTab{
   constructor(contentSelector, selector, options) {
     this.contentSelector = contentSelector
+    this.contentContainer = document.querySelector(contentSelector)
     this.container = document.querySelector(selector)
     this.defaultOption = {
       titleContent: '',
@@ -34,6 +35,7 @@ export default class NavTab{
     })
     template += '</ul>'
     this.container.innerHTML = template
+    this.renderContent(0)
   }
   bindEvent() {
     this.container.addEventListener('click', event => {
@@ -41,6 +43,7 @@ export default class NavTab{
       let curTarget = event.target
       let index = this.getIndex(this.container, curTarget, targetTag)
       // 渲染相应组件
+
       this.renderContent(index)
     })
   }
@@ -66,7 +69,10 @@ export default class NavTab{
   }
   renderContent(index) {
     let { Component } = this.options[index]
-    new Component(this.contentSelector)
+    // 这句要商榷
+    this.contentContainer.innerHTML = ''
+    // console.log(this.contentContainer)
+    console.log(new Component(this.contentSelector))
   }
 }
 

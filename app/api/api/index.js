@@ -11,20 +11,70 @@ db.once('open', () => {
 })
 
 // 采用mongoose处理ajax
-router.get('/api/about', context => {
-  return '123'
+router.get('/api/bloglist', context => {
+  return {
+    status: 1,
+    message: 'success',
+    data: [
+      {
+        blogId: 1,
+        title: '你不知道的JS',
+        brief: '这里是两行简介, 这里是两行简介, 这里是两行简介, 这里是两行简介',
+        comments: '999',
+        likes: '999',
+        createDate: new Date().toLocaleString()
+      },
+      {
+        blogId: 1,
+        title: '你不知道的JS',
+        brief: '这里是两行简介, 这里是两行简介, 这里是两行简介, 这里是两行简介',
+        comments: '999',
+        likes: '999',
+        createDate: new Date().toLocaleString()
+      },
+      {
+        blogId: 1,
+        title: '你不知道的JS',
+        brief: '这里是两行简介, 这里是两行简介, 这里是两行简介, 这里是两行简介',
+        comments: '999',
+        likes: '999',
+        createDate: new Date().toLocaleString()
+      },
+      {
+        blogId: 1,
+        title: '你不知道的JS',
+        brief: '这里是两行简介, 这里是两行简介, 这里是两行简介, 这里是两行简介',
+        comments: '999',
+        likes: '999',
+        createDate: new Date().toLocaleString()
+      },
+      {
+        blogId: 1,
+        title: '你不知道的JS',
+        brief: '这里是两行简介, 这里是两行简介, 这里是两行简介, 这里是两行简介',
+        comments: '999',
+        likes: '999',
+        createDate: new Date().toLocaleString()
+      },
+      {
+        blogId: 1,
+        title: '你不知道的JS',
+        brief: '这里是两行简介, 这里是两行简介, 这里是两行简介, 这里是两行简介',
+        comments: '999',
+        likes: '999',
+        createDate: new Date().toLocaleString()
+      }
+    ]
+  }
 })
-router.get('/api/articles', context => {
-  return '123'
-})
-router.post('/api/articles', context => {
+router.get('/api/blog/comments', context => {
   return '456'
 })
-router.get('/api/designs', context => {
-  
+
+router.get('/api/design/designList', context => {  
 })
 
-router.post('/api/publish', context => {
+router.post('/api/postComts', context => {
 
 })
 

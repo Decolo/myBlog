@@ -1,6 +1,14 @@
+/**
+ * @param  {String}  opts.method
+ * @param  {String}  opts.url
+ * @param  {Object}  opts.data
+ * @param  {Boolean}  opts.async
+ * @param  {responseType}  opts.responseType
+ * @param  {contentType}  opts.contentType
+ */
 function ajax(opts) {
   const options = {
-    method: opts.method.toUpperCase() || 'GET',
+    method: opts.method || 'GET',
     url: opts.url || '',
     data: opts.data || {},
     async: opts.async || true,
@@ -30,6 +38,14 @@ function ajax(opts) {
     }
     xhr.onerror = reject
     xhr.send(finalData)
+  }).then(ret => {
+    if (ret.status === 1) {
+      return ret
+    } else {
+      throw new Error(ret.message)
+    }
+  }).catch(error => {
+    console.log(error)
   })
 }
 

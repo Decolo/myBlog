@@ -5,6 +5,8 @@ import About from './js/about.js'
 import Blogs from './js/blogs.js'
 import Designs from './js/designs.js'
 
+import ajax from './js/util/ajax'
+
 new Tab('.content', '.bottom-nav', [
   {
     titleContent: 'About',
