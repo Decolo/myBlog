@@ -25,6 +25,3 @@ new Tab('.content', '.bottom-nav', [
   },
 ])
 
-
-
-

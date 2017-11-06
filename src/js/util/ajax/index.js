@@ -52,7 +52,7 @@ function ajax(opts) {
 function serialize(obj) {
   let arr = []
   for (let key of Object.keys(obj)) {
-    arr.push(`${key}=${obj[key]}`)
+    arr.push(`${key}=${encodeURI(obj[key])}`)
   }
   return arr.join('&')
 }

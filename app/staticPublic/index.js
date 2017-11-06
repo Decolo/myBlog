@@ -8,12 +8,11 @@ module.exports = context  => {
   // readFile第一个参数路径相对于process.cwd,即node进程执行所在目录
   return new Promise(resolve => {
     let { pathname } = reqContext
-    // .css || .js || .jpg || .html
     if (pathname.match(/\./) && !pathname.match('/api')) {
       const _path = path.resolve(staticPath, `.${pathname}`)
       resContext.headers = {
-        'Content-Type': mime.getType(_path),
-        ...resContext.headers
+        ...resContext.headers,
+        'Content-Type': mime.getType(_path)
       }
       fs.readFile(_path, (error, content) => {
         if (error) {

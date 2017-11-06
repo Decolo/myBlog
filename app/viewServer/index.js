@@ -9,9 +9,6 @@ const urlMap = require('./urlrewrite')
 module.exports = context => {
   let { req, resContext, reqContext } = context
   let { pathname } = reqContext
-  if (pathname === '/') {
-    pathname = '/index'
-  }
   return Promise.resolve({
     then: resolve => {
       if (pathname.match('/api') || pathname.match(/\./)) {

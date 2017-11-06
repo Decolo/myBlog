@@ -11,7 +11,7 @@ app.use(cookieParser)
 app.use(urlParser)
 app.use(apiServer)
 app.use(staticPublic)
-app.use(viewServer)
+// app.use(viewServer)
 
 const PORT = 7000
 

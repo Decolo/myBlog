@@ -39,22 +39,9 @@ class App{
       }
       this.composeMiddlWares(context).then(() => {
         let { body, headers, statusCode, statusMessage } = context.resContext
-        res.writeHeader(statusCode, statusMessage, headers)
-        res.end(body)  
+        res.writeHead(statusCode, statusMessage, headers)
+        res.end(body)
       })
-      // url中有api，就用api处理，若不是，则视为是静态资源
-      // urlParser(context).then(() => {
-      //   // ajax
-      //   return apiServer(context)
-      // }).then(() => {
-      //   // static sources
-      //   return staticPublic(context)
-      // }).then(() => {
-      //   let { body, headers } = context.resContext
-      //   res.writeHeader(200, 'ok', headers)
-      //   res.end(body)
-      // })
-      
     }
   }
 }

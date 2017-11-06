@@ -252,7 +252,7 @@ function ajax(opts) {
 function serialize(obj) {
   let arr = [];
   for (let key of Object.keys(obj)) {
-    arr.push(`${key}=${obj[key]}`);
+    arr.push(`${key}=${encodeURI(obj[key])}`);
   }
   return arr.join('&');
 }
@@ -1038,13 +1038,11 @@ class Blogs {
   }
   getBlogs(pagination) {
     Object(__WEBPACK_IMPORTED_MODULE_0__util_ajax__["a" /* default */])({
-      url: 'http://127.0.0.1:9000/api/bloglist',
+      url: '/api/bloglist',
       data: pagination,
       responseType: 'json',
       method: 'GET'
     }).then(ret => {
-      console.log(ret);
-      debugger;
       if (ret.message === 'success') {
         console.log(ret);
         this.render(ret.data);
