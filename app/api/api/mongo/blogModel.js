@@ -132,10 +132,37 @@ const getBlogList = (query, context) => {
       } 
     })
 }
+
+const likePost = (id, context) => {
+  return BlogModel.findByIdAndUpdate(id, {
+    $inc: { likes: 1 } 
+  }).then(ret => {
+    if (ret) {
+      return {
+        status: 1,
+        message: 'success',
+        data: ret
+      }
+    } else {
+      throw new Error('Not Found')
+    }
+  }).catch(error => {
+    context.resContext = {
+      ...context.resContext,
+      statusCode: 404,
+      statusMessage: statusCodeMap(404)
+    }
+    return {
+      status: 0,
+      message: error
+    }
+  })
+}
 module.exports = {
   saveBlog,  
   getBlog,
   deleteBlog,
   updateBlog,
-  getBlogList
+  getBlogList,
+  likePost
 }

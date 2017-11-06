@@ -1,6 +1,6 @@
 let mongoose = require('mongoose')
 let Router = require('../router')
-let { getBlog, saveBlog, deleteBlog, updateBlog,  getBlogList} = require('./mongo/blogModel.js')
+let { getBlog, saveBlog, deleteBlog, updateBlog,  getBlogList, likePost} = require('./mongo/blogModel.js')
 let router = new Router()
 mongoose.Promise = global.Promise
 // connect collection
@@ -52,18 +52,19 @@ router.get('/api/blogList', context => {
 })
 
 // 点赞博文
-router.post('/api/blog/likes', context => {
-  return '456'
+router.post('/api/blog/like', context => {
+  let { reqContext } = context
+  let { body } = reqContext
+  let { blogId } = body
+  return likePost(blogId, context)
 })
 
-// 获取作品列表
-router.get('/api/design/designList', context => {  
-})
+// // 获取作品列表
+// router.get('/api/design/designList', context => {  
+// })
 
-// 点赞作品
-router.post('/api/design/designList', context => {  
-})
-
-
+// // 点赞作品
+// router.post('/api/design/designList', context => {  
+// })
 
 module.exports = router
