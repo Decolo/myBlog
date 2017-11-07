@@ -115,7 +115,8 @@ const getBlogList = (query, context) => {
         return {
           status: 1,
           datas: blogs.slice(start, end),
-          total: blogs.length
+          total: blogs.length,
+          message: 'success'
         }
       } else {
         throw new Error('Not Found')

@@ -20,6 +20,7 @@ export default class Blogs {
     this.init()
   }
   init() {
+    console.log('init')
     let template = `
       <ul class="blogs">
       </ul>
@@ -27,17 +28,18 @@ export default class Blogs {
     this.container.innerHTML = template
     this.blogContainer = this.container.children[0]
     this.getBlogs(this.pagination)
+    console.log('constructor')
   }
   getBlogs(pagination) {
+    console.log('getBlogs')
     ajax({
-      url: '/api/bloglist',
+      url: '/api/blogList',
       data: pagination,
       responseType: 'json',
       method: 'GET'
     }).then(ret => {
       if (ret.message === 'success') {
-        console.log(ret)
-        this.render(ret.data)
+        this.render(ret.datas)
       } else {
         // 没有了
       }
@@ -49,18 +51,18 @@ export default class Blogs {
       let li = document.createElement('li')
       let template = `
           <div class="row">
-            <h3><a href="/blog/${item.blogId}">${item.title}</a></h3>
-            <p>${item.createDate}</p>
+            <h3 class="title"><a href="/api/blog?${item._id}">${item.title}</a></h3>
+            <p class="date">${item.date.substr(0, 10)}</p>
           </div>
           <div class="row">
-            <p class="breif"><a href="/blog/${item.blogId}">${item.brief}</a></p>
+            <p class="breif">${item.rawContent.substr(0, 80) + '...'}</p>
           </div>
           <ul class="row">
             <li>
               <svg class="blog icon" aria-hidden="true">
                 <use xlink:href="#icon-pinglun"></use>
               </svg>
-              <span>${item.comments}</span>
+              <span>${item.comments.length}</span>
             </li>
             <li>
               <svg class="blog icon" aria-hidden="true">
